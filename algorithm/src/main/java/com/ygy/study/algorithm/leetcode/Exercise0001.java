@@ -1,5 +1,6 @@
 package com.ygy.study.algorithm.leetcode;
 
+import com.alibaba.fastjson.JSON;
 import com.ygy.study.algorithm.common.TreeNode;
 import com.ygy.study.algorithm.common.TreeUtil;
 
@@ -31,45 +32,95 @@ public class Exercise0001 {
 
     public static void main(String[] args) {
         TreeNode treeNode = TreeUtil.buildRandomTree(5, 100);
-        List<String> paths = new ArrayList<>();
-        List<TreeNode> treeNodes = new ArrayList<>();
+        List<String> paths = findTreePaths(treeNode);
+        System.out.println(JSON.toJSON(paths));
 
-        findTreePaths(paths, treeNodes, treeNode);
+
+//        TreeNode treeNode = buildTestTreeNode();
+//        List<String> paths = findTreePaths(treeNode);
+//        System.out.println(JSON.toJSON(paths));
+
+
     }
 
-    private static void findTreePaths(List<String> paths, List<TreeNode> treeNodes, TreeNode treeNode) {
+    public static TreeNode buildTestTreeNode() {
+
+        TreeNode root = new TreeNode(1);
+        TreeNode rootL = new TreeNode(2);
+        TreeNode rootR = new TreeNode(3);
+        TreeNode root2L = new TreeNode(4);
+        TreeNode root2R = new TreeNode(5);
+        TreeNode root3L = new TreeNode(6);
+        TreeNode root4L = new TreeNode(7);
+
+        root.setLeft(rootL);
+        root.setRight(rootR);
+
+        rootL.setLeft(root2L);
+        rootL.setRight(root2R);
+        root2L.setLeft(root3L);
+        root3L.setLeft(root4L);
+
+        return root;
+    }
+
+    /**
+     * 方式1：循环深度优先遍历，筛出所有路径
+     * @param treeNode
+     * @return
+     */
+    public static List<String> findTreePaths(TreeNode treeNode) {
         if (null == treeNode) {
-            return;
+            return null;
         }
+
+        List<TreeNode> leafNodes = new ArrayList<>();
+        List<TreeNode> allNodes = new ArrayList<>();
+
+        // 深度优先遍历
         Stack<TreeNode> stack = new Stack<>();
         stack.push(treeNode);
-
         while (!stack.isEmpty()) {
             TreeNode node = stack.pop();
-            treeNodes.add(node);
+            allNodes.add(node);
 
-            // 处理叶子节点
+            // 存储叶子节点
             if (null == node.getLeft() && null == node.getRight()) {
-                StringJoiner sj = new StringJoiner("->", "[" ,"]");
-                for (TreeNode tmp : treeNodes) {
-                    sj.add(""+tmp.getVal());
-                }
-                paths.add(sj.toString());
-
-                while (!treeNodes.isEmpty()) {
-                    treeNodes.remove(treeNodes.size()-1);
-                }
-
+                leafNodes.add(node);
+                continue;
             }
-
-            if (node.getRight() == null) {
+            if (node.getRight() != null) {
                 stack.push(node.getRight());
             }
-            if (node.getLeft() == null) {
+            if (node.getLeft() != null) {
                 stack.push(node.getLeft());
             }
-
         }
+
+        // 遍历结果，筛出所有路径
+        List<String> paths = new ArrayList<>();
+        if (null == leafNodes || leafNodes.size() <= 0) {
+            return paths;
+        }
+        for (TreeNode leafNode : leafNodes) {
+            StringJoiner sj = new StringJoiner("->", "", "");
+            for (TreeNode allNode : allNodes) {
+                sj.add("" + allNode.getVal());
+
+                if (allNode.getLeft() != null && allNode.getLeft() == leafNode) {
+                    sj.add("" + leafNode.getVal());
+                    break;
+                }
+                if (allNode.getRight() != null && allNode.getRight() == leafNode) {
+                    sj.add("" + leafNode.getVal());
+                    break;
+                }
+
+            }
+            paths.add(sj.toString());
+        }
+
+        return paths;
     }
 
 }
