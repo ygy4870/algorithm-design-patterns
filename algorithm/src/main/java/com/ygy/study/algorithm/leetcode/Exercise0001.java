@@ -66,12 +66,12 @@ public class Exercise0001 {
 
     /**
      * 方式1：循环深度优先遍历，筛出所有路径
-     * @param treeNode
+     * @param root
      * @return
      */
-    public static List<String> findTreePaths(TreeNode treeNode) {
+    public static List<String> findTreePaths(TreeNode root) {
         List<String> paths = new ArrayList<>();
-        if (null == treeNode) {
+        if (null == root) {
             return paths;
         }
 
@@ -80,7 +80,7 @@ public class Exercise0001 {
 
         // 深度优先遍历
         Stack<TreeNode> stack = new Stack<>();
-        stack.push(treeNode);
+        stack.push(root);
         while (!stack.isEmpty()) {
             TreeNode node = stack.pop();
             allNodes.add(node);
@@ -125,20 +125,20 @@ public class Exercise0001 {
 
     /**
      * 方式2：广度优先遍历（深度优先遍历也可以）
-     * @param treeNode
+     * @param root
      * @return
      */
-    public static List<String> findTreePaths2(TreeNode treeNode) {
+    public static List<String> findTreePaths2(TreeNode root) {
         List<String> paths = new ArrayList<>();
-        if (null == treeNode) {
+        if (null == root) {
             return paths;
         }
 
         Queue<TreeNode> nodeQueue = new LinkedList<>();
         Queue<String> pathQueue = new LinkedList<>();
 
-        nodeQueue.offer(treeNode);
-        pathQueue.offer("" + treeNode.getVal());
+        nodeQueue.offer(root);
+        pathQueue.offer("" + root.getVal());
 
         while (!nodeQueue.isEmpty()) {
             TreeNode node = nodeQueue.poll();
