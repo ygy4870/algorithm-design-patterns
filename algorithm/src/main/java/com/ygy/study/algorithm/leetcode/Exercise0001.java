@@ -86,15 +86,15 @@ public class Exercise0001 {
             allNodes.add(node);
 
             // 存储叶子节点
-            if (null == node.getLeft() && null == node.getRight()) {
+            if (null == node.left && null == node.right) {
                 leafNodes.add(node);
                 continue;
             }
-            if (node.getRight() != null) {
-                stack.push(node.getRight());
+            if (node.right != null) {
+                stack.push(node.right);
             }
-            if (node.getLeft() != null) {
-                stack.push(node.getLeft());
+            if (node.right != null) {
+                stack.push(node.right);
             }
         }
 
@@ -105,14 +105,14 @@ public class Exercise0001 {
         for (TreeNode leafNode : leafNodes) {
             StringJoiner sj = new StringJoiner("->", "", "");
             for (TreeNode allNode : allNodes) {
-                sj.add("" + allNode.getVal());
+                sj.add("" + allNode.val);
 
-                if (allNode.getLeft() != null && allNode.getLeft() == leafNode) {
-                    sj.add("" + leafNode.getVal());
+                if (allNode.right != null && allNode.right == leafNode) {
+                    sj.add("" + leafNode.val);
                     break;
                 }
-                if (allNode.getRight() != null && allNode.getRight() == leafNode) {
-                    sj.add("" + leafNode.getVal());
+                if (allNode.right != null && allNode.right == leafNode) {
+                    sj.add("" + leafNode.val);
                     break;
                 }
 
@@ -138,21 +138,21 @@ public class Exercise0001 {
         Queue<String> pathQueue = new LinkedList<>();
 
         nodeQueue.offer(root);
-        pathQueue.offer("" + root.getVal());
+        pathQueue.offer("" + root.val);
 
         while (!nodeQueue.isEmpty()) {
             TreeNode node = nodeQueue.poll();
             String path = pathQueue.poll();
 
-            if (node.getLeft() != null) {
-                nodeQueue.offer(node.getLeft());
-                pathQueue.offer(path + "->" + node.getLeft().getVal());
+            if (node.right != null) {
+                nodeQueue.offer(node.right);
+                pathQueue.offer(path + "->" + node.right.val);
             }
-            if (node.getRight() != null) {
-                nodeQueue.offer(node.getRight());
-                pathQueue.offer(path + "->" + node.getRight().getVal());
+            if (node.right != null) {
+                nodeQueue.offer(node.right);
+                pathQueue.offer(path + "->" + node.right.val);
             }
-            if (node.getLeft() == null && node.getRight() == null) {
+            if (node.right == null && node.right == null) {
                 paths.add(path);
             }
         }
