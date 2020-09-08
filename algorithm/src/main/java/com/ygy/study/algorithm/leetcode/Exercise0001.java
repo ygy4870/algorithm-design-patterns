@@ -4,10 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.ygy.study.algorithm.common.TreeNode;
 import com.ygy.study.algorithm.common.TreeUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-import java.util.StringJoiner;
+import java.util.*;
 
 /**
  *    给定一个二叉树，返回所有从根节点到叶子节点的路径。
@@ -31,14 +28,17 @@ import java.util.StringJoiner;
 public class Exercise0001 {
 
     public static void main(String[] args) {
-        TreeNode treeNode = TreeUtil.buildRandomTree(5, 100);
+//        TreeNode treeNode = TreeUtil.buildRandomTree(5, 100);
+//        List<String> paths = findTreePaths(treeNode);
+//        System.out.println(JSON.toJSON(paths));
+
+
+        TreeNode treeNode = buildTestTreeNode();
         List<String> paths = findTreePaths(treeNode);
         System.out.println(JSON.toJSON(paths));
 
-
-//        TreeNode treeNode = buildTestTreeNode();
-//        List<String> paths = findTreePaths(treeNode);
-//        System.out.println(JSON.toJSON(paths));
+        List<String> paths2 = findTreePaths2(treeNode);
+        System.out.println(JSON.toJSON(paths2));
 
 
     }
@@ -70,8 +70,9 @@ public class Exercise0001 {
      * @return
      */
     public static List<String> findTreePaths(TreeNode treeNode) {
+        List<String> paths = new ArrayList<>();
         if (null == treeNode) {
-            return null;
+            return paths;
         }
 
         List<TreeNode> leafNodes = new ArrayList<>();
@@ -98,7 +99,6 @@ public class Exercise0001 {
         }
 
         // 遍历结果，筛出所有路径
-        List<String> paths = new ArrayList<>();
         if (null == leafNodes || leafNodes.size() <= 0) {
             return paths;
         }
@@ -118,6 +118,43 @@ public class Exercise0001 {
 
             }
             paths.add(sj.toString());
+        }
+
+        return paths;
+    }
+
+    /**
+     * 方式2：广度优先遍历（深度优先遍历也可以）
+     * @param treeNode
+     * @return
+     */
+    public static List<String> findTreePaths2(TreeNode treeNode) {
+        List<String> paths = new ArrayList<>();
+        if (null == treeNode) {
+            return paths;
+        }
+
+        Queue<TreeNode> nodeQueue = new LinkedList<>();
+        Queue<String> pathQueue = new LinkedList<>();
+
+        nodeQueue.offer(treeNode);
+        pathQueue.offer("" + treeNode.getVal());
+
+        while (!nodeQueue.isEmpty()) {
+            TreeNode node = nodeQueue.poll();
+            String path = pathQueue.poll();
+
+            if (node.getLeft() != null) {
+                nodeQueue.offer(node.getLeft());
+                pathQueue.offer(path + "->" + node.getLeft().getVal());
+            }
+            if (node.getRight() != null) {
+                nodeQueue.offer(node.getRight());
+                pathQueue.offer(path + "->" + node.getRight().getVal());
+            }
+            if (node.getLeft() == null && node.getRight() == null) {
+                paths.add(path);
+            }
         }
 
         return paths;
