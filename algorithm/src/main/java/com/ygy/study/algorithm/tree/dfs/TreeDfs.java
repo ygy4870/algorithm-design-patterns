@@ -1,7 +1,7 @@
-package com.ygy.study.algorithm.dfs;
+package com.ygy.study.algorithm.tree.dfs;
 
-import com.ygy.study.algorithm.common.TreeNode;
-import com.ygy.study.algorithm.common.TreeUtil;
+import com.ygy.study.algorithm.tree.common.TreeNode;
+import com.ygy.study.algorithm.tree.common.TreeUtil;
 
 import java.util.*;
 

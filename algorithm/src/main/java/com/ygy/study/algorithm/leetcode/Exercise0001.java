@@ -1,8 +1,7 @@
 package com.ygy.study.algorithm.leetcode;
 
 import com.alibaba.fastjson.JSON;
-import com.ygy.study.algorithm.common.TreeNode;
-import com.ygy.study.algorithm.common.TreeUtil;
+import com.ygy.study.algorithm.tree.common.TreeNode;
 
 import java.util.*;
 

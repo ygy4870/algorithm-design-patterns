@@ -1,4 +1,4 @@
-package com.ygy.study.algorithm.common;
+package com.ygy.study.algorithm.tree.common;
 
 import java.util.LinkedList;
 import java.util.Queue;
