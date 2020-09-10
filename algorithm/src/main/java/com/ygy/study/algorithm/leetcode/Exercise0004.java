@@ -1,5 +1,8 @@
 package com.ygy.study.algorithm.leetcode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 无重复字符的最长子串
  *      给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
@@ -27,6 +30,9 @@ public class Exercise0004 {
         String str = "ryghretyaretrrrr";
         int maxLen = lengthOfLongestSubstring(str);
         System.out.println(maxLen);
+
+        int maxLen2 = lengthOfLongestSubstring2(str);
+        System.out.println(maxLen2);
 
     }
 
@@ -66,6 +72,35 @@ public class Exercise0004 {
                 }
             }
         }
+        return max;
+    }
+
+    /**
+     * 用map记录下标，可以减少循环
+     * @param str
+     * @return
+     */
+    public static int lengthOfLongestSubstring2(String str) {
+        if (null == str || 0 == str.length()) {
+            return 0;
+        }
+        if (1 == str.length()) {
+            return 1;
+        }
+
+        int max = 0;
+        Map<Character, Integer> map = new HashMap<>();
+        int start = 0;
+        for (int i = 0; i < str.length(); i++) {
+            Integer index = map.getOrDefault(str.charAt(i), -1);
+            if (start < index) {
+                int currentMax = i - start;
+                max = max > currentMax ? max : currentMax;
+                start = index + 1;
+            }
+            map.put(str.charAt(i), i);
+        }
+
         return max;
     }
 
