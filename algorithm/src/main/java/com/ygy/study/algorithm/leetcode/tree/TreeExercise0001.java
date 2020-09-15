@@ -1,4 +1,4 @@
-package com.ygy.study.algorithm.leetcode;
+package com.ygy.study.algorithm.leetcode.tree;
 
 import com.alibaba.fastjson.JSON;
 import com.ygy.study.algorithm.tree.common.TreeNode;
@@ -24,7 +24,7 @@ import java.util.*;
  *    解释: 所有根节点到叶子节点的路径为: 1->2->5, 1->3
  *
  */
-public class Exercise0001 {
+public class TreeExercise0001 {
 
     public static void main(String[] args) {
 //        TreeNode treeNode = TreeUtil.buildRandomTree(5, 100);

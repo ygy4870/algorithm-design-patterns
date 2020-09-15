@@ -1,4 +1,4 @@
-package com.ygy.study.algorithm.leetcode;
+package com.ygy.study.algorithm.leetcode.linkedlist;
 
 import com.ygy.study.algorithm.linkedlist.LinkedListUtil;
 import com.ygy.study.algorithm.linkedlist.ListNode;
@@ -21,7 +21,7 @@ import java.util.Map;
  * 链接：https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
-public class Exercise0008 {
+public class LinkedListExercise0004 {
 
     public static void main(String[] args) {
 

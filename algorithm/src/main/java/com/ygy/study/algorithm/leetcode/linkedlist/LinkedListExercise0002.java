@@ -1,4 +1,4 @@
-package com.ygy.study.algorithm.leetcode;
+package com.ygy.study.algorithm.leetcode.linkedlist;
 
 import com.ygy.study.algorithm.linkedlist.LinkedListUtil;
 import com.ygy.study.algorithm.linkedlist.ListNode;
@@ -11,7 +11,7 @@ import com.ygy.study.algorithm.linkedlist.ListNode;
  *      输入：1->2->4, 1->3->4
  *      输出：1->1->2->3->4->4
  */
-public class Exercise0007 {
+public class LinkedListExercise0002 {
 
     public static void main(String[] args) {
 
