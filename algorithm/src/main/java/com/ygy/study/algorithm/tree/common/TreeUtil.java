@@ -1,8 +1,6 @@
 package com.ygy.study.algorithm.tree.common;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Random;
+import java.util.*;
 
 public class TreeUtil {
 
@@ -46,8 +44,61 @@ public class TreeUtil {
 
 
     public static void main(String[] args) {
-        TreeNode treeNode = buildRandomTree(3, 100);
+        TreeNode treeNode = buildRandomTree(6, 100);
         System.out.println(treeNode);
+
+        prinDfs(treeNode);
+        prinBfs(treeNode);
+    }
+
+    /**
+     * 打印深度优先遍历
+     * @param root
+     */
+    public static void prinDfs(TreeNode root) {
+        if (null == root) {
+            return;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        StringJoiner sj = new StringJoiner("->", "", "");
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            sj.add("" + node.val);
+
+            if (null != node.right) {
+                stack.push(node.right);
+            }
+            if (null != node.left) {
+                stack.push(node.left);
+            }
+        }
+        System.out.println(sj.toString());
+    }
+
+    /**
+     * 打印广度优先遍历
+     * @param root
+     */
+    public static void prinBfs(TreeNode root) {
+        if (null == root) {
+            return;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        StringJoiner sj = new StringJoiner("->", "", "");
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            sj.add("" + node.val);
+
+            if (null != node.left) {
+                queue.offer(node.left);
+            }
+            if (null != node.right) {
+                queue.offer(node.right);
+            }
+        }
+        System.out.println(sj.toString());
     }
 
 }
