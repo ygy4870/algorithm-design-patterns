@@ -1,5 +1,6 @@
 package com.ygy.study.algorithm.leetcode;
 
+import com.ygy.study.algorithm.linkedlist.LinkedListUtil;
 import com.ygy.study.algorithm.linkedlist.ListNode;
 
 /**
@@ -44,12 +45,7 @@ public class Exercise0007 {
         node27.next = node28;
 
         ListNode listNode = mergeTwoLists(node11, node21);
-
-        ListNode temp = listNode;
-        while (temp!=null){
-            System.out.println(temp.val);
-            temp = temp.next;
-        }
+        LinkedListUtil.print(listNode);
     }
 
     public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
