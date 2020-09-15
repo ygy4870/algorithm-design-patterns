@@ -47,15 +47,18 @@ public class TreeUtil {
         TreeNode treeNode = buildRandomTree(6, 100);
         System.out.println(treeNode);
 
-        prinDfs(treeNode);
-        prinBfs(treeNode);
+        printDfs(treeNode);
+        printBfs(treeNode);
+        printPrefs(treeNode);
+        printPostfs(treeNode);
+        printMiddlefs(treeNode);
     }
 
     /**
      * 打印深度优先遍历
      * @param root
      */
-    public static void prinDfs(TreeNode root) {
+    public static void printDfs(TreeNode root) {
         if (null == root) {
             return;
         }
@@ -80,7 +83,7 @@ public class TreeUtil {
      * 打印广度优先遍历
      * @param root
      */
-    public static void prinBfs(TreeNode root) {
+    public static void printBfs(TreeNode root) {
         if (null == root) {
             return;
         }
@@ -99,6 +102,45 @@ public class TreeUtil {
             }
         }
         System.out.println(sj.toString());
+    }
+
+    /**
+     * 前序遍历
+     * @param root
+     */
+    public static void printPrefs(TreeNode root) {
+        if (null == root) {
+            return;
+        }
+        System.out.print(root.val+"->");
+        printPrefs(root.left);
+        printPrefs(root.right);
+    }
+
+    /**
+     * 后序遍历
+     * @param root
+     */
+    public static void printPostfs(TreeNode root) {
+        if (null == root) {
+            return;
+        }
+        printPostfs(root.left);
+        printPostfs(root.right);
+        System.out.print(root.val+"->");
+    }
+
+    /**
+     * 中序遍历
+     * @param root
+     */
+    public static void printMiddlefs(TreeNode root) {
+        if (null == root) {
+            return;
+        }
+        printMiddlefs(root.left);
+        System.out.print(root.val+"->");
+        printMiddlefs(root.right);
     }
 
 }
