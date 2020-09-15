@@ -13,7 +13,7 @@ public class TreeUtil {
 
         TreeNode root = new TreeNode(random.nextInt(valBound));
 
-        Queue<TreeNode> treeNodes = new LinkedList<TreeNode>();
+        Queue<TreeNode> treeNodes = new LinkedList<>();
         treeNodes.offer(root);
 
         TreeNode temp = null;
@@ -45,13 +45,12 @@ public class TreeUtil {
 
     public static void main(String[] args) {
         TreeNode treeNode = buildRandomTree(6, 100);
-        System.out.println(treeNode);
 
         printDfs(treeNode);
         printBfs(treeNode);
-        printPrefs(treeNode);
-        printPostfs(treeNode);
-        printMiddlefs(treeNode);
+        printPreOrder(treeNode);
+        printPostOrder(treeNode);
+        printInOrder(treeNode);
     }
 
     /**
@@ -108,39 +107,87 @@ public class TreeUtil {
      * 前序遍历
      * @param root
      */
-    public static void printPrefs(TreeNode root) {
+    public static void printPreOrder(TreeNode root) {
+        StringJoiner sj = new StringJoiner("->","","");
+        preOrderRecursion(root, sj);
+        System.out.println(sj.toString());
+    }
+
+    /**
+     * 递归前序遍历，根->左->右
+     * @param root
+     * @param sj
+     */
+    public static void preOrderRecursion(TreeNode root, StringJoiner sj) {
         if (null == root) {
             return;
         }
-        System.out.print(root.val+"->");
-        printPrefs(root.left);
-        printPrefs(root.right);
+        sj.add(""+root.val);
+        preOrderRecursion(root.left, sj);
+        preOrderRecursion(root.right, sj);
+    }
+
+    public static StringJoiner preOrderForeach(TreeNode root) {
+        StringJoiner sj = new StringJoiner("->", "", "");
+        if (null == root) {
+            return sj;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            sj.add("" + node.val);
+            if (null != node.getRight()) {
+                stack.push(node.getRight());
+            }
+            if (null != node.getLeft()) {
+                stack.push(node.getLeft());
+            }
+        }
+        return sj;
     }
 
     /**
      * 后序遍历
      * @param root
      */
-    public static void printPostfs(TreeNode root) {
+    public static void printPostOrder(TreeNode root) {
+        StringJoiner sj = new StringJoiner("->","","");
+        postOrderRecursion(root, sj);
+        System.out.println(sj.toString());
+    }
+
+    /**
+     * 递归后续遍历，左->右->根
+     * @param root
+     * @param sj
+     */
+    public static void postOrderRecursion(TreeNode root,StringJoiner sj) {
         if (null == root) {
             return;
         }
-        printPostfs(root.left);
-        printPostfs(root.right);
-        System.out.print(root.val+"->");
+        postOrderRecursion(root.left, sj);
+        postOrderRecursion(root.right, sj);
+        sj.add(""+root.val);
     }
 
     /**
      * 中序遍历
      * @param root
      */
-    public static void printMiddlefs(TreeNode root) {
+    public static void printInOrder(TreeNode root) {
+        StringJoiner sj = new StringJoiner("->","","");
+        inOrderRecursion(root, sj);
+        System.out.println(sj.toString());
+    }
+
+    public static void inOrderRecursion(TreeNode root,StringJoiner sj) {
         if (null == root) {
             return;
         }
-        printMiddlefs(root.left);
-        System.out.print(root.val+"->");
-        printMiddlefs(root.right);
+        inOrderRecursion(root.left, sj);
+        sj.add(""+root.val);
+        inOrderRecursion(root.right, sj);
     }
 
 }
