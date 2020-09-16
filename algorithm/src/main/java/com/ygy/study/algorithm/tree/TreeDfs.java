@@ -1,10 +1,10 @@
-package com.ygy.study.algorithm.tree.dfs;
-
-import com.ygy.study.algorithm.tree.common.TreeNode;
-import com.ygy.study.algorithm.tree.common.TreeUtil;
+package com.ygy.study.algorithm.tree;
 
 import java.util.*;
 
+/**
+ * 二叉树深度遍历
+ */
 public class TreeDfs {
 
     public static void main(String[] args) {

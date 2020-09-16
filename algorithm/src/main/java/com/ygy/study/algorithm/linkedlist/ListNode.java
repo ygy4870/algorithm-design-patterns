@@ -1,5 +1,8 @@
 package com.ygy.study.algorithm.linkedlist;
 
+import lombok.Data;
+
+@Data
 public class ListNode {
 
     public int val;

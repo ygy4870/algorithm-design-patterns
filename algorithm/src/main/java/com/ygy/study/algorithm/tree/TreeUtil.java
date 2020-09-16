@@ -1,4 +1,4 @@
-package com.ygy.study.algorithm.tree.common;
+package com.ygy.study.algorithm.tree;
 
 import java.util.*;
 
