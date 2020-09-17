@@ -1,34 +1,24 @@
 package com.ygy.study.algorithm.tree;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 /**
  * 二叉树深度遍历
  */
 public class TreeDfs {
 
-    public static void main(String[] args) {
-
-        TreeNode root = TreeUtil.buildRandomTree(5, 100);
-        List<Integer> dfsList = new ArrayList<Integer>();
-        recursionDfs(dfsList, root);
-        System.out.println(dfsList);
-
-        List<Integer> dfsList2 = new ArrayList<Integer>();
-        foreachDfs(dfsList2, root);
-        System.out.println(dfsList2);
-    }
-
     /**
      * 递归方式实现深度优先遍历
      * @param dfsList
      * @param treeNode
      */
-    public static void recursionDfs(List<Integer> dfsList, TreeNode treeNode) {
+    public static void recursionDfs(List<TreeNode> dfsList, TreeNode treeNode) {
         if (null == treeNode) {
             return;
         }
-        dfsList.add(treeNode.getVal());
+        dfsList.add(treeNode);
 
         if (null != treeNode.getLeft()) {
             recursionDfs(dfsList, treeNode.getLeft());
@@ -42,12 +32,13 @@ public class TreeDfs {
 
     /**
      * 用栈数据结构，for循环方式深度优先遍历
-     * @param dfsList
      * @param treeNode
+     * @return
      */
-    public static void foreachDfs(List<Integer> dfsList, TreeNode treeNode) {
+    public static List<TreeNode> foreachDfs(TreeNode treeNode) {
+        List<TreeNode> treeNodes = new ArrayList<>();
         if (treeNode == null) {
-            return;
+            return treeNodes;
         }
 
         Stack<TreeNode> stack = new Stack<TreeNode>();
@@ -55,17 +46,15 @@ public class TreeDfs {
 
         while (!stack.isEmpty()){
             TreeNode node = stack.pop();
-            dfsList.add(node.getVal());
-
+            treeNodes.add(node);
             if (null!=node.getRight()) {
                 stack.push(node.getRight());
             }
             if (null!=node.getLeft()) {
                 stack.push(node.getLeft());
             }
-
         }
-
+        return treeNodes;
     }
 
 
