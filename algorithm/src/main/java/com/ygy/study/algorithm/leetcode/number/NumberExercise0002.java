@@ -1,4 +1,4 @@
-package com.ygy.study.algorithm.leetcode;
+package com.ygy.study.algorithm.leetcode.number;
 
 /**
  * 寻找两个正序数组的中位数(难度困难)
@@ -26,7 +26,7 @@ package com.ygy.study.algorithm.leetcode;
  *      链接：https://leetcode-cn.com/problems/median-of-two-sorted-arrays
  *      著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
-public class Exercise0005 {
+public class NumberExercise0002 {
 
     public static void main(String[] args) {
 

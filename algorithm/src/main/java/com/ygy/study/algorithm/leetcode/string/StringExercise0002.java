@@ -1,4 +1,4 @@
-package com.ygy.study.algorithm.leetcode;
+package com.ygy.study.algorithm.leetcode.string;
 
 /**
  * 最长回文子串 难度中等
@@ -20,7 +20,7 @@ package com.ygy.study.algorithm.leetcode;
  * 链接：https://leetcode-cn.com/problems/longest-palindromic-substring
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
-public class Exercise0006 {
+public class StringExercise0002 {
 
     public static void main(String[] args) {
 

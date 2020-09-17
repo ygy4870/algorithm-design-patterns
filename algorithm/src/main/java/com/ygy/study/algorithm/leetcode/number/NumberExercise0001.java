@@ -1,4 +1,4 @@
-package com.ygy.study.algorithm.leetcode;
+package com.ygy.study.algorithm.leetcode.number;
 
 import com.alibaba.fastjson.JSON;
 
@@ -16,7 +16,7 @@ import com.alibaba.fastjson.JSON;
  *   所以返回 [0, 1]
  *
  */
-public class Exercise0002 {
+public class NumberExercise0001 {
 
     public static void main(String[] args) {
         int[] nums = {2, 9, 7, 11, 15};
