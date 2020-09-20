@@ -5,6 +5,35 @@ import java.util.*;
 public class TreeUtil {
 
 
+    public static TreeNode buildTree(int[] preorder, int[] inorder) {
+        return buildTreePreIn(preorder, 0, preorder.length-1, inorder, 0, inorder.length-1);
+    }
+
+
+
+    private static TreeNode buildTreePreIn(int[] preorder,int preStart, int preEnd, int[] inorder, int inStart, int inEnd) {
+        if (null==preorder || inorder==null) {
+            return null;
+        }
+        if (preStart==preEnd) {
+            return new TreeNode(preorder[preStart]);
+        }
+        int rootVal = preorder[preStart];
+
+        int i = inStart;
+        for (; i <= inEnd; i++) {
+            if (rootVal==inorder[i]) {
+                break;
+            }
+        }
+        int count = i-inStart;
+
+        TreeNode root = new TreeNode(rootVal);
+        root.left = buildTreePreIn(preorder, preStart+1,preStart+count, inorder, inStart, inStart+count-1);
+        root.right = buildTreePreIn(preorder, preStart+count+1,preEnd, inorder, inStart+count+1, inEnd);
+        return root;
+    }
+
     public static TreeNode buildRandomTree(int depth, int valBound) {
         if (depth <= 0) {
             return null;
@@ -44,12 +73,19 @@ public class TreeUtil {
 
 
     public static void main(String[] args) {
-        TreeNode treeNode = buildRandomTree(6, 100);
+//        TreeNode treeNode = buildRandomTree(6, 100);
+//
+//        printDfs(treeNode);
+//        printBfs(treeNode);
+//        printPreOrder(treeNode);
+//        printPostOrder(treeNode);
+//        printInOrder(treeNode);
 
-        printDfs(treeNode);
-        printBfs(treeNode);
+        int[] preorder = {3,9,20,15,7};
+        int[] inorder = {9,3,15,20,7};
+
+        TreeNode treeNode = buildTree(preorder, inorder);
         printPreOrder(treeNode);
-        printPostOrder(treeNode);
         printInOrder(treeNode);
     }
 

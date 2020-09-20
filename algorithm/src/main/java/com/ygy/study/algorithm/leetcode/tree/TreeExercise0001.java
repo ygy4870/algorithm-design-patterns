@@ -3,7 +3,10 @@ package com.ygy.study.algorithm.leetcode.tree;
 import com.alibaba.fastjson.JSON;
 import com.ygy.study.algorithm.tree.TreeNode;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 /**
  *    给定一个二叉树，返回所有从根节点到叶子节点的路径。
@@ -33,9 +36,6 @@ public class TreeExercise0001 {
 
 
         TreeNode treeNode = buildTestTreeNode();
-        List<String> paths = findTreePaths(treeNode);
-        System.out.println(JSON.toJSON(paths));
-
         List<String> paths2 = findTreePaths2(treeNode);
         System.out.println(JSON.toJSON(paths2));
 
@@ -60,66 +60,9 @@ public class TreeExercise0001 {
         root2L.setLeft(root3L);
         root3L.setLeft(root4L);
 
+        rootR.setRight(new TreeNode(8));
+
         return root;
-    }
-
-    /**
-     * 方式1：循环深度优先遍历，筛出所有路径
-     * @param root
-     * @return
-     */
-    public static List<String> findTreePaths(TreeNode root) {
-        List<String> paths = new ArrayList<>();
-        if (null == root) {
-            return paths;
-        }
-
-        List<TreeNode> leafNodes = new ArrayList<>();
-        List<TreeNode> allNodes = new ArrayList<>();
-
-        // 深度优先遍历
-        Stack<TreeNode> stack = new Stack<>();
-        stack.push(root);
-        while (!stack.isEmpty()) {
-            TreeNode node = stack.pop();
-            allNodes.add(node);
-
-            // 存储叶子节点
-            if (null == node.left && null == node.right) {
-                leafNodes.add(node);
-                continue;
-            }
-            if (node.right != null) {
-                stack.push(node.right);
-            }
-            if (node.right != null) {
-                stack.push(node.right);
-            }
-        }
-
-        // 遍历结果，筛出所有路径
-        if (null == leafNodes || leafNodes.size() <= 0) {
-            return paths;
-        }
-        for (TreeNode leafNode : leafNodes) {
-            StringJoiner sj = new StringJoiner("->", "", "");
-            for (TreeNode allNode : allNodes) {
-                sj.add("" + allNode.val);
-
-                if (allNode.right != null && allNode.right == leafNode) {
-                    sj.add("" + leafNode.val);
-                    break;
-                }
-                if (allNode.right != null && allNode.right == leafNode) {
-                    sj.add("" + leafNode.val);
-                    break;
-                }
-
-            }
-            paths.add(sj.toString());
-        }
-
-        return paths;
     }
 
     /**
@@ -147,11 +90,11 @@ public class TreeExercise0001 {
                 nodeQueue.offer(node.right);
                 pathQueue.offer(path + "->" + node.right.val);
             }
-            if (node.right != null) {
-                nodeQueue.offer(node.right);
-                pathQueue.offer(path + "->" + node.right.val);
+            if (node.left != null) {
+                nodeQueue.offer(node.left);
+                pathQueue.offer(path + "->" + node.left.val);
             }
-            if (node.right == null && node.right == null) {
+            if (node.right == null && node.left == null) {
                 paths.add(path);
             }
         }

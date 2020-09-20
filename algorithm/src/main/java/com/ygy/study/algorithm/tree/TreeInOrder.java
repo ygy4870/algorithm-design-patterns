@@ -39,13 +39,20 @@ public class TreeInOrder {
         while (!stack.isEmpty()) {
             current = stack.peek();
             while (null!=current.left) {
-                stack.push(current);
+                stack.push(current.left);
                 current = current.left;
             }
+
             current = stack.pop();
-            treeNodes.add(current);
-            if (current.right!=null) {
-                stack.push(current.right);
+
+            while (current!=null) {
+                treeNodes.add(current);
+                if (current.right==null) {
+                    current = stack.isEmpty()?null:stack.pop();
+                } else {
+                    stack.push(current.right);
+                    break;
+                }
             }
         }
         return treeNodes;
