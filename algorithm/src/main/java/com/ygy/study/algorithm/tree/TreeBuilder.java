@@ -1,6 +1,7 @@
 package com.ygy.study.algorithm.tree;
 
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
 
@@ -8,6 +9,10 @@ public class TreeBuilder {
 
     public static TreeNode buildTree(int[] preorder, int[] inorder) {
         return buildTreePreIn(preorder, 0, preorder.length-1, inorder, 0, inorder.length-1);
+    }
+
+    public static TreeNode buildTree(int[] preorder, int[] inorder, Map<String,TreeNode> cache) {
+        return buildTreePreIn(preorder, 0, preorder.length-1, inorder, 0, inorder.length-1,cache);
     }
 
     /**
@@ -45,6 +50,48 @@ public class TreeBuilder {
         TreeNode root = new TreeNode(rootVal);
         root.left = buildTreePreIn(preorder, preStart+1,preStart+count, inorder, inStart, inStart+count-1);
         root.right = buildTreePreIn(preorder, preStart+count+1,preEnd, inorder, inStart+count+1, inEnd);
+        return root;
+    }
+
+    /**
+     * 根据前序遍历、中序遍历构建树
+     * @param preorder
+     * @param preStart
+     * @param preEnd
+     * @param inorder
+     * @param inStart
+     * @param inEnd
+     * @param cache  Map<值+“-”+下标, TreeNode>
+     * @return
+     */
+    private static TreeNode buildTreePreIn(int[] preorder, int preStart, int preEnd, int[] inorder, int inStart, int inEnd, Map<String, TreeNode> cache) {
+        if (null==preorder || inorder==null) {
+            return null;
+        }
+        if (preStart==preEnd) {
+            TreeNode treeNode = new TreeNode(preorder[preStart]);
+            cache.put(""+preorder[preStart]+"-"+preStart, treeNode);
+            return treeNode;
+        }
+        int rootVal = preorder[preStart];
+
+        int i = inStart;
+        boolean success = false;
+        for (; i <= inEnd; i++) {
+            if (rootVal==inorder[i]) {
+                success = true;
+                break;
+            }
+        }
+        if (!success) {
+            return null;
+        }
+        int count = i-inStart;
+
+        TreeNode root = new TreeNode(rootVal);
+        cache.put(""+rootVal+"-"+preStart, root);
+        root.left = buildTreePreIn(preorder, preStart+1,preStart+count, inorder, inStart, inStart+count-1, cache);
+        root.right = buildTreePreIn(preorder, preStart+count+1,preEnd, inorder, inStart+count+1, inEnd, cache);
         return root;
     }
 
