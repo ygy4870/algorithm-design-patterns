@@ -6,6 +6,7 @@ public class SortUtil {
 
     public static void main(String[] args) {
         int[] nums = {5,8,1,3,4,9,5,6,10};
+//        int[] nums = {1,3,5,7,2,4,6,8};
 ////        bubbleSort(nums);
 //        mergeSortRecursion(nums, 0, nums.length-1);
 //
@@ -93,14 +94,16 @@ public class SortUtil {
         int i = left;
         int  j=right;
         while (i<j) {
+            // 从右往左找比key小的值，顺序很重要，先从右往左
+            while (nums[j] >= key && i < j) {
+                j--;
+            }
+
             // 从左往右找比key大的值
             while (nums[i] <= key && i < j) {
                 i++;
             }
-            // 从右往左找比key小的值
-            while (nums[j] >= key && i < j) {
-                j--;
-            }
+
             // 交互找到的值
             if (i<j) {
                 int temp = nums[i];
@@ -108,8 +111,7 @@ public class SortUtil {
                 nums[j] = temp;
             }
         }
-        // 因为是i指针先从左往右走，最终必然指向大于key的位置，i-1位置则是小于key的值
-        nums[left]=nums[--i];
+        nums[left]=nums[i];
         nums[i]=key;
 
         fastSort(nums, left, i-1);
@@ -133,6 +135,14 @@ public class SortUtil {
         for (int i = 1; i < nums.length-1; i++) {
 
         }
+
+    }
+
+    /**
+     * 堆排序
+     * @param nums
+     */
+    public static void heapSort(int[] nums) {
 
     }
 
