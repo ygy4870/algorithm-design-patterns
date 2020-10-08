@@ -25,10 +25,10 @@ public class StringExercise0002 {
     public static void main(String[] args) {
 
 //        String str = "babad";
-        String str = "bababab";
+        String str = "babaddtattarrattatddetartrateedredividerb";
 //        String str = "aba";
-        String result = longestPalindrome(str, 0, str.length() - 1);
-        System.out.println(result);
+//        String result = longestPalindrome(str, 0, str.length() - 1);
+//        System.out.println(result);
 
         String result2 = longestPalindrome(str);
         System.out.println(result2);
@@ -77,54 +77,65 @@ public class StringExercise0002 {
      * @return
      */
     public static String longestPalindrome(String s) {
-        if (null == s || s.length() < 2) {
-            return s;
+        if (null == s || s.length() < 1) {
+            return "";
         }
-        // 中心点
-        int medianIndex = s.length() / 2;
         int start = 0;
         int end = 0;
-
-        // 先往右移动
-        int right = medianIndex;
-        while (right < s.length()) {
-            if (s.length() - right < (end - start) / 2) {
+        for (int i = 0; i < s.length(); i++) {
+            int len1 = lenPalindrome(s, i, i);
+            int len2 = lenPalindrome(s, i, i+1);
+            int len = len1>len2?len1:len2;
+            if (len > end-start+1) {
+                start = i - (len-1)/2;
+                end = i + len/2;
+            }
+            if (len==s.length()) {
                 break;
             }
-            int len1 = lenPalindrome(s, right, right);
-            int len2 = lenPalindrome(s, right, right + 1);
-            int len = len1 > len2 ? len1 : len2;
-            if (len > end - start) {
-                start = right - len / 2;
-                end = right + len / 2 + 1;
-            }
-            right++;
         }
+        return s.substring(start, end+1);
+    }
 
-        // 往左移动
-        int left = medianIndex;
-        while (left > 0) {
-            if (left < (end - start) / 2) {
+    public static String longestPalindrome2(String s) {
+        if (null == s || s.length() < 1) {
+            return "";
+        }
+        int start = 0;
+        int end = 0;
+        int left = s.length()/2;
+        int right = s.length()/2+1;
+
+        for (int i = right; i < s.length(); i++) {
+            int len1 = lenPalindrome(s, i, i);
+            int len2 = lenPalindrome(s, i, i+1);
+            int len = len1>len2?len1:len2;
+            if (len > end-start+1) {
+                start = i - (len-1)/2;
+                end = i + len/2;
+            }
+            if (len==s.length()) {
                 break;
             }
-            int len1 = lenPalindrome(s, left, left);
-            int len2 = lenPalindrome(s, left - 1, left);
-            int len = len1 > len2 ? len1 : len2;
-            if (len > end - start) {
-                start = left - len / 2;
-                end = left + len / 2 + 1;
-            }
-            left--;
         }
 
-        return s.substring(start, end);
+        for (int i = left; i > 0; i--) {
+            int len1 = lenPalindrome(s, i, i);
+            int len2 = lenPalindrome(s, i, i-1);
+            int len = len1>len2?len1:len2;
+            if (len > end-start+1) {
+                start = i - (len-1)/2;
+                end = i + len/2;
+            }
+            if (len==s.length()) {
+                break;
+            }
+        }
+        return s.substring(start, end+1);
     }
 
     private static int lenPalindrome(String s, int left, int right) {
-        while (left >= 0 && right < s.length()) {
-            if (s.charAt(left) != s.charAt(right)) {
-                return right - left + 1;
-            }
+        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
             left--;
             right++;
         }
